@@ -1,5 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Univers+Condensed&display=swap');
+
+body {
+    background-color: #f2f2f2;
+}
+
 .weather-widget {
-    border: 1px solid #ddd;
-    padding: 10px;
+    background-color: #0099cc;
+    color: white;
+    font-family: 'Univers Condensed', sans-serif;
+    padding: 20px;
     max-width: 250px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.weather-widget h4 {
+    margin: 0 0 8px;
+    font-size: 1.2em;
+}
+
+.weather-widget .temperature {
+    font-size: 2.5em;
+    font-weight: bold;
 }

@@ -1,1 +1,605 @@
-this is a test
+@mixin carousel-actionBar-desktop {
+    background-color: $carousel-actionBar-bg;
+    height: fit-content;
+    gap: 60px;
+    width: calc(100% - 80px);
+    padding: 20px 40px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    z-index: 5;
+    bottom: 0;
+    flex-direction: row;
+    position: relative;
+
+    // action buttons
+    .cmp-carousel__actions {
+        display: flex;
+        gap: 9px;
+        padding: 8px 12px 8px 40px;
+
+        .cmp-carousel__action {
+            background-color: $carousel-action-button-bg;
+            border: 1px solid $carousel-action-button-border;
+            color: $carousel-action-button-color;
+            font-size: 12px;
+            border-radius: 0px;
+            height: $carousel-action-bar-height;
+            width: $carousel-action-bar-height;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $carousel-action-background-hover;
+                border: 1px solid $carousel-action-button-hover-border;
+                color: $carousel-action-color-hover;
+                opacity: 0.7;
+            }
+        }
+    }
+
+    // actionBar thumbnails
+    .cmp-carousel__indicators {
+        gap: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        height: fit-content;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cmp-carousel__indicator {
+            background-color: $carousel-thumbnail-missing-image-bg;
+            border: 5px solid $carousel-actionBar-bg;
+            height: 134px;
+            width: 175px;
+            margin: 0;
+            border-radius: 4px;
+            text-indent: 0;
+            flex-shrink: 0;
+            opacity: $carousel-thumbnail-opacity;
+            transition: 1s linear(0 0%, 0 1.8%, 0.01 3.6%, 0.03 6.35%, 0.07 9.1%, 0.13 11.4%, 0.19 13.4%, 0.27 15%, 0.34 16.1%, 0.54 18.35%, 0.66 20.6%, 0.72 22.4%, 0.77 24.6%, 0.81 27.3%, 0.85 30.4%, 0.88 35.1%, 0.92 40.6%, 0.94 47.2%, 0.96 55%, 0.98 64%, 0.99 74.4%, 1 86.4%, 1 100%); // making thumbnail active
+            outline: 0 !important;
+
+            &:hover {
+                opacity: $carousel-thumbnail-hover-opacity;
+            }
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            img:focus-visible {
+                @extend .focus-visible-state;
+            }
+        }
+
+        .cmp-carousel__indicator--active {
+            background-color: $carousel-actionBar-bg;
+            border-bottom: 2px solid $carousel-thumbnail-active-border-bottom-color;
+            opacity: $carousel-thumbnail-active-opacity;
+            border-top: none;
+            padding-bottom: 8px;
+        }
+    }
+
+    /* Responsive: adjust image and text for smaller screens */
+    @media (max-width: $tablet-min) {
+        .cmp-carousel__indicators {
+            padding: 10px;
+        }
+
+        .cmp-carousel__indicator {
+            width: 100%;
+            /* Full width on small screens */
+            margin-right: 0;
+            flex-direction: column;
+            /* Stack the image and text vertically */
+            align-items: center;
+        }
+
+        .cmp-carousel__actionBar-container {
+            width: 100%;
+            text-align: center;
+        }
+
+        .cmp-carousel__image {
+            width: 80%;
+            /* Image takes up more space on smaller screens */
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.cmp-carousel .cmp-carousel__content {
+
+    .teaser {
+        //special height handling for Quote Carousels
+        .cmp-teaser:has(blockquote) {
+            .cmp-teaser__content {
+                height: 237px;
+            }
+        }
+
+        .cmp-teaser:not(:has(blockquote)) {
+            .cmp-teaser__content {
+                height: 500px;
+            }
+        }
+
+        .cmp-teaser {
+            .cmp-teaser__content {
+                gap: $carousel-gap;
+                padding: 40px 40px 50px 40px;
+                box-sizing: border-box;
+                overflow: hidden;
+                align-content: center;
+
+                .cmp-teaser__content-text {
+                    padding: 0;
+                    gap: $carousel-gap;
+                }
+
+                .cmp-teaser__action-container {
+                    margin-top: $carousel-gap;
+                    padding: 0;
+                }
+            }
+
+            .cmp-teaser__author {
+                order: 3;
+                @extend .font-h4;
+            }
+
+            .cmp-teaser__description {
+                order: 4;
+                display: block;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                line-height: normal;
+            }
+
+            .cmp-teaser__date {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                @extend .font-h4;
+            }
+
+            p {
+                margin: 0;
+            }
+
+            .cmp-teaser__title {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                @extend .font-h3;
+            }
+
+            picture {
+                height: 500px;
+                overflow: hidden;
+                flex-shrink: 0;
+                box-sizing: border-box;
+
+                .cmp-teaser__image {
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .cmp-teaser__link {
+                width: 100%;
+                overflow: hidden;
+                display: flex;
+            }
+
+            &.cmp-teaser__image-25,
+            &.cmp-teaser__image-50 {
+                .cmp-teaser__date {
+                    -webkit-line-clamp: 1;
+                }
+
+                .cmp-teaser__title {
+                    -webkit-line-clamp: 3;
+                }
+
+                .cmp-teaser__description {
+                    -webkit-line-clamp: 8;
+                }
+            }
+
+            &.cmp-teaser__image-75 {
+                .cmp-teaser__date {
+                    -webkit-line-clamp: 1;
+                }
+
+                .cmp-teaser__title {
+                    -webkit-line-clamp: 3;
+                }
+
+                .cmp-teaser__description {
+                    -webkit-line-clamp: 6;
+                }
+            }
+        }
+    }
+
+    .teaser.cmp-teaser__mode-secondary {
+        .cmp-teaser .cmp-teaser__content {
+
+            .cmp-teaser__author,
+            .cmp-teaser__date {
+                color: $carousel-title-font-color-description !important;
+            }
+        }
+    }
+
+    // special margin to make space for the box shadow to show on Primary style. 
+    // Not needed for Carousel
+    .teaser.cmp-teaser__mode-primary {
+        .cmp-teaser {
+            margin: 0px;
+        }
+    }
+
+    .cmp-video__hero {
+
+        .cmp-video__section,
+        .mejs__container,
+        video.cmp-video__video {
+            height: 500px !important;
+        }
+    }
+
+    .cmp-carousel__actionBar {
+        position: relative;
+        width: 100%;
+        padding: $carousel-padding;
+    }
+
+    .cmp-carousel__actions {
+        position: absolute;
+        top: -51px;
+        right: 15px;
+        display: flex;
+        gap: 9px;
+        z-index: 3;
+
+        .cmp-carousel__action {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: $carousel-action-background-color-description;
+            border: 0;
+            color: $carousel-action-font-color-description;
+            font-size: $carousel-font-size-medium;
+            border-radius: $carousel-border-radius;
+            height: $carousel-action-bar-height;
+            width: $carousel-action-bar-height;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $carousel-action-background-hover;
+                border: 1px solid $carousel-action-button-hover-border;
+                color: $carousel-action-color-hover;
+                opacity: 0.7;
+            }
+        }
+    }
+}
+
+/* Actionbar - Hidden */
+.cmp-carousel--actionbar-hidden {
+    .cmp-carousel__indicators {
+        display: none;
+    }
+}
+
+/* Actionbar - Indicators only */
+.cmp-carousel--actionbar-indicators {
+    .cmp-carousel__indicators {
+        padding: 20px 0px;
+    }
+
+    .teaser .cmp-teaser .cmp-teaser__content {
+        gap: 0;
+    }
+
+    @media (max-width: $mobile-max) {
+        .cmp-container .cmp-carousel__actions {
+            top: -51px;
+        }
+    }
+}
+
+/* Actionbar - Thumbnails only */
+.carousel.cmp-carousel--thumbnail-nodescription {
+    .cmp-carousel__actions {
+        right: 3px;
+    }
+
+    .cmp-carousel__content {
+        overflow: hidden;
+        height: auto;
+        width: 100%;
+        margin: auto;
+
+        .cmp-carousel__actionBar {
+            @include carousel-actionBar-desktop;
+        }
+    }
+
+    .cmp-carousel__viewPanel {
+        display: block;
+        height: var(--height);
+        width: var(--width);
+
+        .cmp-carousel__item {
+            border: none;
+            display: none !important;
+            height: 100%;
+            background-color: $carousel-missing-image-bg;
+
+            .cmp-image {
+                display: block;
+            }
+
+            .cmp-image__wrapper,
+            img {
+                object-fit: cover;
+                width: var(--width);
+                height: var(--height);
+            }
+        }
+
+        .cmp-carousel__item.cmp-carousel__item--active {
+            display: block !important;
+        }
+    }
+
+    @media (max-width: $mobile-max) {
+        .cmp-container .cmp-carousel__actions {
+            top: -51px;
+        }
+    }
+}
+
+/* Actionbar -  Thumbnails and Description */
+.cmp-carousel--thumbnail-description {
+    .teaser .cmp-teaser .cmp-teaser__content {
+        gap: 20px;
+    }
+
+    .cmp-container .cmp-carousel__actions {
+        position: absolute;
+        right: 16px;
+    }
+
+    /* Action Bar Thumbnails */
+    .cmp-carousel__indicators {
+        display: flex;
+        justify-content: left;
+        background-color: $carousel-background-indicators-color;
+        padding: $carousel-padding;
+        margin: $carousel-margin;
+        list-style-type: none;
+        overflow: hidden;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+
+        .cmp-carousel__indicator {
+            background-color: $carousel-background-color-description;
+            width: 32.2%;
+            max-width: 439px;
+            height: 136px;
+            display: flex;
+            justify-content: flex-start;
+            border-radius: $carousel-border-radius;
+            text-indent: 0;
+            margin: $carousel-margin;
+            flex: $carousel-flex;
+            overflow: hidden;
+            margin-right: 21px;
+            margin-top: 15px;
+
+            img {
+                width: 38%;
+                height: 136px;
+                object-fit: cover;
+            }
+
+            img:focus-visible {
+                @extend .focus-visible-state;
+            }
+
+            /* Action bar container */
+            .cmp-carousel__actionBar-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                width: 60%;
+                padding-left: 20px;
+                margin-top: 10px;
+                height: 136px;
+                justify-content: center;
+            }
+        }
+
+        .cmp-carousel__indicator--active img {
+            border: $carousel-border-active-description;
+            box-sizing: border-box;
+        }
+    }
+
+    /* Styles for the date */
+    .cmp-carousel__actionBar-container-date {
+        color: $carousel-indicator-font-color;
+        margin: 0 0 10px 0;
+        @extend .font-h3;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Styles for the title */
+    .cmp-carousel__actionBar-container-title {
+        color: $carousel-teaser-color;
+        margin: 0px 20px 20px 0px;
+        @extend .font-body;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: normal;
+    }
+
+    /* Tablet Size - Show 2 cards in a row (max-width: 1195px) */
+    @media (max-width: $tablet-max) {
+        .cmp-carousel__indicators {
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            justify-content: flex-start;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            /* Enable smooth scrolling */
+            scroll-behavior: smooth;
+
+            .cmp-carousel__indicator {
+                width: 50%;
+                max-width: unset;
+                display: flex;
+                justify-content: flex-start;
+                flex: 0 0 50%;
+                overflow: hidden;
+                scroll-snap-align: start;
+                margin-top: 20px;
+            }
+        }
+
+        .cmp-carousel__indicator:first-of-type {
+            margin-left: 0;
+            /* override for the first */
+        }
+
+        .cmp-carousel__indicator img {
+            width: 100%;
+            height: auto;
+        }
+
+        .cmp-carousel__actionBar-container {
+            flex-direction: column;
+            justify-content: center;
+            width: 60%;
+            padding-left: 15px;
+            color: $carousel-teaser-color;
+        }
+
+        .cmp-carousel__indicator--active img {
+            border: $carousel-border-active-description;
+        }
+    }
+
+    @media (max-width: $mobile-max) {
+        .cmp-carousel__indicators {
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: row;
+            margin-right: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow-x: scroll;
+            counter-reset: item;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+        }
+
+        .cmp-carousel__indicators .cmp-carousel__indicator {
+            width: 100%;
+            max-width: unset;
+            flex: 0 0 100%;
+        }
+
+        .cmp-carousel__actionBar-container {
+            flex-direction: column;
+        }
+
+        .cmp-carousel__indicator--active img {
+            border: $carousel-border-active-description;
+        }
+    }
+}
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+    .cmp-carousel .cmp-carousel__content {
+        .teaser {
+            .cmp-teaser {
+                .cmp-teaser__content {
+                    width: 100%;
+                    height: 398px;
+                    padding: 40px 40px 57px 40px;
+                }
+
+                picture {
+                    width: 100%;
+                    height: 411px;
+
+                    .cmp-teaser__image {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        .cmp-carousel__actions {
+            top: -56px;
+        }
+
+        // Image styles
+        .cmp-image__no-details {
+            height: 411px;
+            width: 100%;
+        }
+
+        // Video section
+        .cmp-video__hero {
+            .cmp-video__section {
+                height: 411px !important;
+            }
+        }
+    }
+}
+
+@media (max-width: $mobile-max) {
+    .cmp-carousel .cmp-carousel__content {
+        .teaser {
+            .cmp-teaser {
+                .cmp-teaser__content {
+                    width: 100%;
+                    height: 511px;
+                }
+
+                picture {
+                    width: 100%;
+                    height: 237px;
+
+                    .cmp-teaser__image {
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

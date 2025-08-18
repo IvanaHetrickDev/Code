@@ -1,0 +1,11 @@
+<sly data-sly-template.teaserTags="${@ teaser}">
+    <div class="cmp-teaser__tags" data-sly-list.tagItem="${teaser.teaserTags}">
+        <button
+                class="cmp-teaser__tag-button"
+                type="button"
+                aria-label="Filter by tag: ${tagItem.title}"
+        >
+            ${tagItem.title}
+        </button>
+    </div>
+</sly>

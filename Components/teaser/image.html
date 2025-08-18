@@ -1,0 +1,18 @@
+<sly data-sly-template.image="${@ teaser}">
+    <div class="picture-wrapper">
+        <picture data-sly-test="${properties.imageSource == 'dvids'}">
+            <source media="(max-width:${teaser.mobileMaxWidthBreakpoint}px)"
+                srcset="${properties.dvidsImageThumbnailURL}${teaser.mobileMaxWidthImageRenditionSize}w_q95.jpg">
+            <source media="(max-width:${teaser.tabletMaxWidthBreakpoint}px)"
+                srcset="${properties.dvidsImageThumbnailURL}${teaser.tabletMaxWidthImageRenditionSize}w_q95.jpg">
+            <source media="(max-width:${teaser.maxWidthBreakpoint}px)"
+                srcset="${properties.dvidsImageThumbnailURL}${teaser.maxWidthImageRenditionSize}w_q95.jpg">
+            <img src="${teaser.imageInputFileReference  @ context='uri'}" class="cmp-teaser__image"
+                alt="${properties.alt}" />
+        </picture>
+        <picture data-sly-test="${properties.imageSource != 'dvids' && teaser.imageInputFileReference}">
+            <img src="${teaser.imageInputFileReference  @ context='uri'}" class="cmp-teaser__image"
+                alt="${properties.alt}" />
+        </picture>
+    </div>
+</sly>

@@ -1,0 +1,15 @@
+<sly data-sly-template.action="${@ action}">
+  <div>
+  <a class="cmp-teaser__action-link ${action.iconPath ? 'cmp-teaser__icon' : 'cmp-teaser__button'}"
+     data-sly-attribute="${action.link.htmlAttributes}"
+     data-sly-unwrap="${!action.link.valid}"
+     id="${action.id}"
+     data-cmp-data-layer="${action.data.json}"
+     data-cmp-clickable="${action.data ? true : false}">
+    <sly data-sly-test="${action.iconPath}">
+      <img src="${action.iconPath}" alt="${action.title}" class="cmp-teaser__action-icon"/>
+    </sly>
+    ${action.title}
+  </a>
+  </div>
+</sly>
